@@ -20,10 +20,8 @@ RSpec.describe "永続セッション機能", type: :request do
 
   context "「ログインしたままにする」にチェックを入れずにログインする場合" do
     it "remember_tokenが空であることを確認" do
-      
       login_remember(user)
       delete logout_path
-     
       post login_path, params: { session: { email: user.email,
                                             password: user.password,
                                             remember_me: '0' } }
@@ -35,11 +33,9 @@ RSpec.describe "永続セッション機能", type: :request do
     it "ログイン中のみログアウトすることを確認" do
       login_for_request(user)
       expect(response).to redirect_to user_path(user)
-      
       delete logout_path
       expect(response).to redirect_to root_path
       expect(session[:user_id]).to eq nil
-      
       delete logout_path
       expect(response).to redirect_to root_path
       expect(session[:user_id]).to eq nil

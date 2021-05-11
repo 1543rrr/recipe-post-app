@@ -7,13 +7,12 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   has_secure_password
-  validates :password, presence: true, length: { minimum: 6 }
+  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
   private
     def downcase_email
       self.email = email.downcase
     end
-<<<<<<< Updated upstream
 
     class << self
       def digest(string)
@@ -40,14 +39,4 @@ class User < ApplicationRecord
     def forget
       update_attribute(:remember_digest, nil)
     end
-  end
-=======
-    def self.guest
-      find_or_create_by!(email: 'guest@example.com') do |user|
-        user.password = SecureRandom.urlsafe_base64
-        user.confirmed_at = Time.now
-        user.name = "ゲスト"
-      end
-    end
 end
->>>>>>> Stashed changes
