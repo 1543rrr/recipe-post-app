@@ -13,6 +13,7 @@ class User < ApplicationRecord
     def downcase_email
       self.email = email.downcase
     end
+<<<<<<< Updated upstream
 
     class << self
       def digest(string)
@@ -40,3 +41,13 @@ class User < ApplicationRecord
       update_attribute(:remember_digest, nil)
     end
   end
+=======
+    def self.guest
+      find_or_create_by!(email: 'guest@example.com') do |user|
+        user.password = SecureRandom.urlsafe_base64
+        user.confirmed_at = Time.now
+        user.name = "ゲスト"
+      end
+    end
+end
+>>>>>>> Stashed changes
